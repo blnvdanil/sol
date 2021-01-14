@@ -1,0 +1,6 @@
+add 1 askkdls
+add 2 askdsd
+add 1 asasasasas
+add 100 asasasasasas
+add 3 aaaaa
+print output.txt
