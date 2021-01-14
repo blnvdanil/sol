@@ -34,6 +34,7 @@ public class FileSource {
         if (curLine == null) {
             return curCom = Command.END;
         }
+        // :NOTE: - Пробелы вместо произвольных пробельных символов
         if (test("add ")) {
             return curCom = Command.ADD;
         } else if (test("remove ")) {
@@ -65,12 +66,14 @@ public class FileSource {
     private int getIndex() {
         skipBlanks();
         StringBuilder intStr = new StringBuilder();
+        // :NOTE: * Не поддерживаются отрицательные числа
         while (curPos < curLine.length() && Character.isDigit(curLine.charAt(curPos))) {
             intStr.append(curLine.charAt(curPos));
             curPos++;
         }
         String str = intStr.toString();
 
+        // :NOTE: - .isEmpty()
         if (str.equals("")) {
             throw err("Incorrect index");
         } else {
@@ -81,11 +84,13 @@ public class FileSource {
     private String getString() {
         skipBlanks();
         StringBuilder name = new StringBuilder();
+        // :NOTE: # Не поддерживаются строки с пробелами
         while (curPos < curLine.length() && !Character.isWhitespace(curLine.charAt(curPos))) {
             name.append(curLine.charAt(curPos));
             curPos++;
         }
         String str = name.toString();
+        // :NOTE: * Не все строки имена файлов
         if (str.equals("") || str.length() > MAX_FILENAME) {
             throw err("Incorrect file name");
         }

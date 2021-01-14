@@ -20,9 +20,11 @@ public class Script {
         if (args.length != 1) {
             throw new IllegalArgumentException("Expected 1 argument: file name, found: " + Arrays.toString(args));
         }
+        // :NOTE: * Не рекомендованный способ управления ресурсами
         FileReader f = null;
         try {
             try {
+                // :NOTE: * Ввод-вывод текста без указания кодировки
                 f = new FileReader(args[0]);
                 FileSource source = new FileSource(f);
 
@@ -61,6 +63,7 @@ public class Script {
         try {
             FileWriter writer = null;
             try {
+                // :NOTE: * Небуферизованный вывод
                 writer = new FileWriter(fileName);
                 for (Integer integer : map.keySet()) {
                     for (String s : map.get(integer)) {
@@ -69,6 +72,7 @@ public class Script {
                     }
                 }
             } catch (FileNotFoundException e) {
+                // :NOTE: - Неверное сообщение об ошиюке
                 System.out.println("file not found " + e.getMessage());
             } finally {
                 if (writer != null) {
@@ -90,6 +94,7 @@ public class Script {
                     arr.add(pair.getSecond());
                     map.put(pair.getFirst(), arr);
                 } else {
+                    // :NOTE: - Дублирование arr.add(pair.getSecond());
                     value.add(pair.getSecond());
                 }
                 break;
